@@ -13,12 +13,25 @@ body {
   background: #1a1a1a;
 }
 
-.container {
+#container {
+  visibility: hidden;
+  position: relative;
   border: 10px solid #ddd;
   border-radius: 10px;
+  font-size: 50px;
+  color: black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#message {
+  position: absolute;
+  height: 70px;
+  line-height: 70px;
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 canvas {
   display: block;
-  visibility: hidden;
 }

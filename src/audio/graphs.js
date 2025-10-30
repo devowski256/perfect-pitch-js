@@ -14,7 +14,6 @@ export function initCanvasWaveform() {
   const canvas = document.getElementById('waveform');
   canvas.width = GAME_WIDTH;
   canvas.height = WAVEFORM_HEIGHT;
-  canvas.style.visibility = 'visible';
 
   return canvas.getContext('2d');
 }
@@ -27,7 +26,6 @@ export function initCanvasSpectrum() {
   const canvas = document.getElementById('spectrum');
   canvas.width = GAME_WIDTH;
   canvas.height = SPECTRUM_HEIGHT;
-  canvas.style.visibility = 'visible';
 
   return canvas.getContext('2d');
 }

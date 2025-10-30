@@ -27,9 +27,16 @@ export const BALL_GAME_OVER_Z = PLATFORM_DEPTH + PLATFORM_Z - BALL_DIAMETER * 2;
 export const GATE_HOLE_TOLERANCE = 0.4;
 export const GATE_HOLE_SIZE = (1 + GATE_HOLE_TOLERANCE) * BALL_DIAMETER;
 
-export const PITCH_MIN = NOTES_FIRST * 0.7;
-export const PITCH_MAX = NOTES_LAST * 1.2;
+export const PITCH_MIN = NOTES_FIRST * 0.5;
+export const PITCH_MAX = NOTES_LAST * 1.15;
 export const PITCH_RANGE = PITCH_MAX - PITCH_MIN;
 
 export const SHOW_AUDIO_GRAPHS = true;
 export const CHEATING_ENABLED = false;
+
+const color = (rgba) => rgba.map((x) => x / 255);
+
+export const COLOR_PLATFORM = color([170, 170, 170, 255]);
+export const COLOR_GATE = color([145, 99, 0, 255]);
+export const COLOR_GATE_DONE = color([43, 161, 0, 255]);
+export const COLOR_BALL = color([227, 0, 113, 255]);

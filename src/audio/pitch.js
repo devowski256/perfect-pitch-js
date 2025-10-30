@@ -35,8 +35,9 @@ export function detectPitch(
   let tauEstimate = -1;
   for (let tau = minLag; tau <= maxLag; tau++) {
     if (dPrime[tau] < threshold) {
-      // Optional: check if local minimum
-      if (tau + 1 <= maxLag && dPrime[tau] < dPrime[tau + 1]) {
+      const prev = tau > minLag ? dPrime[tau - 1] : Infinity;
+      const next = tau < maxLag ? dPrime[tau + 1] : Infinity;
+      if (dPrime[tau] < prev && dPrime[tau] < next) {
         tauEstimate = tau;
         break;
       }

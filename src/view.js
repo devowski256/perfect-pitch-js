@@ -1,23 +1,27 @@
 import { mat4 } from 'gl-matrix';
 import {
   BALL_DIAMETER,
+  COLOR_BALL,
+  COLOR_GATE,
+  COLOR_GATE_DONE,
+  COLOR_PLATFORM,
   GAME_HEIGHT,
   GAME_WIDTH,
-  GATE_DEPTH,
-  GATE_HEIGHT,
-  GATE_HOLE_SIZE,
   PLATFORM_DEPTH,
   PLATFORM_HEIGHT,
   PLATFORM_WIDTH,
   PLATFORM_Z,
 } from './config.js';
 import { Cuboid } from './shapes/cuboid.js';
+import { Gate } from './shapes/gate.js';
 import { Sphere } from './shapes/sphere.js';
 
 export class View {
   constructor(gl, program, state) {
     this.gl = gl;
     this.program = program;
+
+    this.message = document.getElementById('message');
 
     this.platform = new Cuboid(
       gl,
@@ -29,46 +33,23 @@ export class View {
       PLATFORM_DEPTH
     );
     this.sphere = new Sphere(gl);
-
-    this.createGateCuboids(state);
+    this.gates = state.gates.map((gate) => new Gate(gl, gate));
   }
 
-  createGateCuboids(state) {
-    this.gateCuboids = [];
+  renderMessage(state) {
+    const { gates, currentGate, gameOverTimer } = state;
 
-    for (const gate of state.gates) {
-      const { z, holeY } = gate;
-
-      const w = PLATFORM_WIDTH;
-      const h = GATE_HEIGHT;
-      const d = GATE_DEPTH;
-      const barW = (PLATFORM_WIDTH - GATE_HOLE_SIZE) / 2;
-
-      this.gateCuboids.push(
-        // Left bar (full height)
-        new Cuboid(this.gl, 0, 0, z, barW, h, d),
-
-        // Right bar (full height)
-        new Cuboid(this.gl, w - barW, 0, z, barW, h, d),
-
-        // Bottom bar (below hole)
-        new Cuboid(this.gl, barW, 0, z, w - 2 * barW, holeY, d),
-
-        // Top bar (above hole)
-        new Cuboid(
-          this.gl,
-          barW,
-          holeY + GATE_HOLE_SIZE,
-          z,
-          w - 2 * barW,
-          h - (holeY + GATE_HOLE_SIZE),
-          d
-        )
-      );
+    if (gameOverTimer === -1) {
+      const gate = gates[currentGate];
+      this.message.innerText = `🎵 ${gate.label}`;
+    } else {
+      this.message.innerText = 'Congrats! 🎉🎉🎉';
     }
   }
 
   render(state) {
+    this.renderMessage(state);
+
     const aPosition = this.gl.getAttribLocation(this.program, 'aPosition');
     const uMvp = this.gl.getUniformLocation(this.program, 'uMvp');
     const uColor = this.gl.getUniformLocation(this.program, 'uColor');
@@ -113,23 +94,23 @@ export class View {
     this.gl.uniformMatrix4fv(uMvp, false, worldMvp);
 
     // Draw platform
-    this.gl.uniform4f(uColor, 0.4, 0.4, 0.4, 1);
+    this.gl.uniform4fv(uColor, COLOR_PLATFORM);
     this.platform.draw(this.gl, aPosition);
 
     // Draw gates
-    this.gl.uniform4f(uColor, 0, 209 / 255, 17 / 255, 1);
-    for (const [i, gateCuboid] of Object.entries(this.gateCuboids)) {
-      if (Math.floor(i / 4) === state.currentGate) {
-        this.gl.uniform4f(uColor, 163 / 255, 92 / 255, 0, 1);
+    this.gl.uniform4fv(uColor, COLOR_GATE_DONE);
+    for (const [i, gate] of Object.entries(this.gates)) {
+      if (Number(i) === state.currentGate) {
+        this.gl.uniform4fv(uColor, COLOR_GATE);
       }
 
-      gateCuboid.draw(this.gl, aPosition);
+      gate.draw(this.gl, aPosition);
     }
 
-    // Draw sphere
+    // Draw ball
     this.gl.uniformMatrix4fv(uMvp, false, ballMvp);
     this.gl.vertexAttribPointer(aPosition, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.uniform4f(uColor, 0.3, 0.7, 1.0, 1);
+    this.gl.uniform4fv(uColor, COLOR_BALL);
     this.sphere.draw(this.gl, aPosition);
   }
 }

@@ -3,6 +3,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from './config.js';
 const vsSource = `
   attribute vec3 aPosition;
   uniform mat4 uMvp;
+  
   void main() {
     gl_Position = uMvp * vec4(aPosition, 1.0);
   }
@@ -11,6 +12,7 @@ const vsSource = `
 const fsSource = `
   precision mediump float;
   uniform vec4 uColor;
+
   void main() {
     gl_FragColor = uColor;
   }
@@ -45,7 +47,6 @@ export function initCanvasWebgl() {
   const canvas = document.getElementById('game');
   canvas.width = GAME_WIDTH;
   canvas.height = GAME_HEIGHT;
-  canvas.style.visibility = 'visible';
 
   const gl = canvas.getContext('webgl');
 
