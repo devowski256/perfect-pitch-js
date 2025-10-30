@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Perfect Pitch Game</title>
+    <link href="main.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container">
+      <canvas id="game"></canvas>
+      <canvas id="waveform"></canvas>
+      <canvas id="spectrum"></canvas>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "gl-matrix": "https://cdn.jsdelivr.net/npm/gl-matrix@3.4.4/+esm"
+        }
+      }
+    </script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
