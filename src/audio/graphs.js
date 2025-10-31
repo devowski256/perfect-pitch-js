@@ -7,11 +7,12 @@ import {
 import { rescale } from '../rescale.js';
 
 export function initCanvasWaveform() {
+  const canvas = document.getElementById('waveform');
   if (!SHOW_AUDIO_GRAPHS) {
+    canvas.remove();
     return;
   }
 
-  const canvas = document.getElementById('waveform');
   canvas.width = GAME_WIDTH;
   canvas.height = WAVEFORM_HEIGHT;
 
@@ -19,11 +20,12 @@ export function initCanvasWaveform() {
 }
 
 export function initCanvasSpectrum() {
+  const canvas = document.getElementById('spectrum');
   if (!SHOW_AUDIO_GRAPHS) {
+    canvas.remove();
     return;
   }
 
-  const canvas = document.getElementById('spectrum');
   canvas.width = GAME_WIDTH;
   canvas.height = SPECTRUM_HEIGHT;
 
