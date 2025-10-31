@@ -31,7 +31,7 @@ export const PITCH_MIN = NOTES_FIRST * 0.5;
 export const PITCH_MAX = NOTES_LAST * 1.15;
 export const PITCH_RANGE = PITCH_MAX - PITCH_MIN;
 
-export const SHOW_AUDIO_GRAPHS = true;
+export const SHOW_AUDIO_GRAPHS = false;
 export const CHEATING_ENABLED = false;
 
 const color = (rgba) => rgba.map((x) => x / 255);
