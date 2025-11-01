@@ -1,3 +1,4 @@
+import { detectPitch } from './audio/detectPitch.js';
 import {
   drawSpectrum,
   drawWaveform,
@@ -6,7 +7,6 @@ import {
 } from './audio/graphs.js';
 import { initAudioInput } from './audio/input.js';
 import { NOTES, SOLFEGE } from './audio/notes.js';
-import { detectPitch } from './audio/pitch.js';
 import { MAX_DT, SHOW_AUDIO_GRAPHS } from './config.js';
 import { INITIAL_STATE } from './state.js';
 import { update } from './update.js';

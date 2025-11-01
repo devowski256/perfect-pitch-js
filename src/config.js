@@ -17,7 +17,8 @@ export const PLATFORM_WIDTH = 2.5;
 export const PLATFORM_HEIGHT = 0.1;
 export const PLATFORM_DEPTH = -PLATFORM_Z + (NOTES.length + 1) * GATE_DISTANCE;
 
-export const BALL_MAX_Y = 4.5;
+export const BALL_Y_SMOOTHING_FACTOR = 0.1;
+export const BALL_MAX_Y = 4.6;
 export const BALL_DIAMETER = 0.5;
 export const BALL_MAX_SPEED = 2;
 export const BALL_INIT_SPEED = 1;
@@ -36,7 +37,8 @@ export const CHEATING_ENABLED = false;
 
 const color = (rgba) => rgba.map((x) => x / 255);
 
-export const COLOR_PLATFORM = color([170, 170, 170, 255]);
-export const COLOR_GATE = color([145, 99, 0, 255]);
+export const COLOR_BACKGROUND = color([35, 34, 44, 255]);
+export const COLOR_PLATFORM = color([141, 145, 181, 255]);
+export const COLOR_BALL = color([255, 180, 40, 255]);
+export const COLOR_GATE = color([163, 2, 39, 255]);
 export const COLOR_GATE_DONE = color([43, 161, 0, 255]);
-export const COLOR_BALL = color([227, 0, 113, 255]);

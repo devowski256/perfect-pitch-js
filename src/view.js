@@ -1,6 +1,7 @@
 import { mat4 } from 'gl-matrix';
 import {
   BALL_DIAMETER,
+  COLOR_BACKGROUND,
   COLOR_BALL,
   COLOR_GATE,
   COLOR_GATE_DONE,
@@ -54,7 +55,7 @@ export class View {
     const uMvp = this.gl.getUniformLocation(this.program, 'uMvp');
     const uColor = this.gl.getUniformLocation(this.program, 'uColor');
 
-    this.gl.clearColor(0.2, 0.2, 0.25, 1);
+    this.gl.clearColor(...COLOR_BACKGROUND);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
     this.gl.enableVertexAttribArray(aPosition);
 

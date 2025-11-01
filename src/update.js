@@ -3,6 +3,7 @@ import {
   BALL_DIAMETER,
   BALL_GAME_OVER_Z,
   BALL_MAX_SPEED,
+  BALL_Y_SMOOTHING_FACTOR,
   CHEATING_ENABLED,
   GATE_HOLE_SIZE,
   PITCH_MIN,
@@ -12,7 +13,9 @@ import { pitchToHeight } from './rescale.js';
 function updateBallY(ball, pitch) {
   const newHeight = pitchToHeight(Math.max(PITCH_MIN, pitch));
 
-  ball.position[1] = ball.position[1] * 0.9 + newHeight * 0.1;
+  ball.position[1] =
+    ball.position[1] * (1 - BALL_Y_SMOOTHING_FACTOR) +
+    newHeight * BALL_Y_SMOOTHING_FACTOR;
 }
 
 function updateBallZ(ball, dt) {
