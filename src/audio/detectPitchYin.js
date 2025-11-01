@@ -1,6 +1,6 @@
 import { PITCH_MAX, PITCH_MIN } from '../config.js';
 
-export function detectPitch(
+export function detectPitchYin(
   buffer,
   sampleRate,
   threshold = 0.15,

@@ -22,6 +22,10 @@ export class View {
     this.gl = gl;
     this.program = program;
 
+    this.aPosition = gl.getAttribLocation(program, 'aPosition');
+    this.uMvp = gl.getUniformLocation(program, 'uMvp');
+    this.uColor = gl.getUniformLocation(program, 'uColor');
+
     this.message = document.getElementById('message');
 
     this.platform = new Cuboid(
@@ -35,6 +39,8 @@ export class View {
     );
     this.sphere = new Sphere(gl);
     this.gates = state.gates.map((gate) => new Gate(gl, gate));
+
+    this.gl.clearColor(...COLOR_BACKGROUND);
   }
 
   renderMessage(state) {
@@ -51,13 +57,8 @@ export class View {
   render(state) {
     this.renderMessage(state);
 
-    const aPosition = this.gl.getAttribLocation(this.program, 'aPosition');
-    const uMvp = this.gl.getUniformLocation(this.program, 'uMvp');
-    const uColor = this.gl.getUniformLocation(this.program, 'uColor');
-
-    this.gl.clearColor(...COLOR_BACKGROUND);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    this.gl.enableVertexAttribArray(aPosition);
+    this.gl.enableVertexAttribArray(this.aPosition);
 
     const proj = mat4.create();
     const view = mat4.create();
@@ -92,26 +93,25 @@ export class View {
     mat4.translate(worldModel, worldModel, [0, 0, -ball[2]]);
     mat4.multiply(worldMvp, proj, view);
     mat4.multiply(worldMvp, worldMvp, worldModel);
-    this.gl.uniformMatrix4fv(uMvp, false, worldMvp);
+    this.gl.uniformMatrix4fv(this.uMvp, false, worldMvp);
 
     // Draw platform
-    this.gl.uniform4fv(uColor, COLOR_PLATFORM);
-    this.platform.draw(this.gl, aPosition);
+    this.gl.uniform4fv(this.uColor, COLOR_PLATFORM);
+    this.platform.draw(this.gl, this.aPosition);
 
     // Draw gates
-    this.gl.uniform4fv(uColor, COLOR_GATE_DONE);
+    this.gl.uniform4fv(this.uColor, COLOR_GATE_DONE);
     for (const [i, gate] of Object.entries(this.gates)) {
       if (Number(i) === state.currentGate) {
-        this.gl.uniform4fv(uColor, COLOR_GATE);
+        this.gl.uniform4fv(this.uColor, COLOR_GATE);
       }
 
-      gate.draw(this.gl, aPosition);
+      gate.draw(this.gl, this.aPosition);
     }
 
     // Draw ball
-    this.gl.uniformMatrix4fv(uMvp, false, ballMvp);
-    this.gl.vertexAttribPointer(aPosition, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.uniform4fv(uColor, COLOR_BALL);
-    this.sphere.draw(this.gl, aPosition);
+    this.gl.uniformMatrix4fv(this.uMvp, false, ballMvp);
+    this.gl.uniform4fv(this.uColor, COLOR_BALL);
+    this.sphere.draw(this.gl, this.aPosition);
   }
 }

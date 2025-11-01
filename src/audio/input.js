@@ -6,10 +6,10 @@ export async function initAudioInput() {
 
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = 2048;
+  source.connect(analyser);
 
   const timeBuffer = new Float32Array(analyser.fftSize);
   const frequencyBuffer = new Float32Array(analyser.frequencyBinCount);
-  source.connect(analyser);
 
   return { sampleRate, timeBuffer, frequencyBuffer, analyser };
 }

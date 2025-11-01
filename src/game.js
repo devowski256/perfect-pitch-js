@@ -1,4 +1,4 @@
-import { detectPitch } from './audio/detectPitch.js';
+import { detectPitchYin } from './audio/detectPitchYin.js';
 import {
   drawSpectrum,
   drawWaveform,
@@ -38,9 +38,11 @@ export async function initGameLoop() {
     previousTime = currentTime;
 
     analyser.getFloatTimeDomainData(timeBuffer);
-    analyser.getFloatFrequencyData(frequencyBuffer);
+    if (SHOW_AUDIO_GRAPHS) {
+      analyser.getFloatFrequencyData(frequencyBuffer);
+    }
 
-    const pitch = detectPitch(timeBuffer, sampleRate);
+    const pitch = detectPitchYin(timeBuffer, sampleRate);
     console.log(pitch);
 
     update(state, pitch, dt);
