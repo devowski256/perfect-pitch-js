@@ -38,7 +38,7 @@ export const CHEATING_ENABLED = false;
 const color = (rgba) => rgba.map((x) => x / 255);
 
 export const COLOR_BACKGROUND = color([35, 34, 44, 255]);
-export const COLOR_PLATFORM = color([141, 145, 181, 255]);
-export const COLOR_BALL = color([255, 180, 40, 255]);
-export const COLOR_GATE = color([163, 2, 39, 255]);
+export const COLOR_PLATFORM = color([108, 110, 123, 255]);
+export const COLOR_BALL = color([253, 10, 179, 255]);
+export const COLOR_GATE = color([130, 75, 3, 255]);
 export const COLOR_GATE_DONE = color([43, 161, 0, 255]);
