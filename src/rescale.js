@@ -4,6 +4,14 @@ export function rescale(value, inMin, inMax, outMin, outMax) {
   return ((value - inMin) / (inMax - inMin)) * (outMax - outMin) + outMin;
 }
 
+export function rescaleLog(value, inMin, inMax, outMin, outMax) {
+  const logMin = Math.log(inMin);
+  const logMax = Math.log(inMax);
+  const logValue = Math.log(value);
+
+  return ((logValue - logMin) / (logMax - logMin)) * (outMax - outMin) + outMin;
+}
+
 export function pitchToHeight(pitch) {
   return rescale(pitch, PITCH_MIN, PITCH_MAX, 0, BALL_MAX_Y);
 }

@@ -71,26 +71,26 @@ export class View {
 
     mat4.perspective(proj, Math.PI / 2, GAME_WIDTH / GAME_HEIGHT, 0.1, 100);
 
-    const eye = [-1.5, 1.5, -2];
+    const eye = [-2.75, 1.5, -2];
     if (state.gameOverTimer > 0) {
       eye[2] -= Math.min(
         Math.pow(state.gameOverTimer, 3),
         PLATFORM_DEPTH + PLATFORM_Z
       );
     }
-    mat4.lookAt(view, eye, [1, 2, 1], [0, 1, 0]);
+    mat4.lookAt(view, eye, [-0.25, 2, 1], [0, 1, 0]);
 
-    mat4.translate(ballModel, ballModel, [
-      PLATFORM_WIDTH / 2,
-      ball[1] + BALL_DIAMETER / 2,
-      0,
-    ]);
+    mat4.translate(ballModel, ballModel, [0, ball[1], 0]);
 
     mat4.multiply(ballMvp, proj, view);
     mat4.multiply(ballMvp, ballMvp, ballModel);
 
     // World moves backward by ball Z
-    mat4.translate(worldModel, worldModel, [0, 0, -ball[2]]);
+    mat4.translate(worldModel, worldModel, [
+      -PLATFORM_WIDTH / 2,
+      -BALL_DIAMETER / 2,
+      -ball[2],
+    ]);
     mat4.multiply(worldMvp, proj, view);
     mat4.multiply(worldMvp, worldMvp, worldModel);
     this.gl.uniformMatrix4fv(this.uMvp, false, worldMvp);

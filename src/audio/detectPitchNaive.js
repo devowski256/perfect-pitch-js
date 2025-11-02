@@ -1,3 +1,5 @@
+import { PITCH_MAX, PITCH_MIN } from '../config.js';
+
 export function detectPitchNaive(
   buffer,
   sampleRate,

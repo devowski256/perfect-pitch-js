@@ -1,5 +1,6 @@
 export async function initAudioInput() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
   const audioContext = new AudioContext();
   const source = audioContext.createMediaStreamSource(stream);
   const sampleRate = audioContext.sampleRate;

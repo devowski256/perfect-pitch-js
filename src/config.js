@@ -28,8 +28,8 @@ export const BALL_GAME_OVER_Z = PLATFORM_DEPTH + PLATFORM_Z - BALL_DIAMETER * 2;
 export const GATE_HOLE_TOLERANCE = 0.4;
 export const GATE_HOLE_SIZE = (1 + GATE_HOLE_TOLERANCE) * BALL_DIAMETER;
 
-export const PITCH_MIN = NOTES_FIRST * 0.5;
-export const PITCH_MAX = NOTES_LAST * 1.15;
+export const PITCH_MIN = NOTES_FIRST / 1.1;
+export const PITCH_MAX = NOTES_LAST * 1.1;
 export const PITCH_RANGE = PITCH_MAX - PITCH_MIN;
 
 export const SHOW_AUDIO_GRAPHS = false;

@@ -13,26 +13,24 @@ export class Gate {
     const w = PLATFORM_WIDTH;
     const h = GATE_HEIGHT;
     const d = GATE_DEPTH;
-    const barW = (PLATFORM_WIDTH - GATE_HOLE_SIZE) / 2;
+    const holeS = GATE_HOLE_SIZE;
+    const barW = (w - holeS) / 2;
 
     this.cuboids = [
       // Left bar (full height)
       new Cuboid(gl, 0, 0, z, barW, h, d),
-
       // Right bar (full height)
       new Cuboid(gl, w - barW, 0, z, barW, h, d),
-
       // Bottom bar (below hole)
       new Cuboid(gl, barW, 0, z, w - 2 * barW, holeY, d),
-
       // Top bar (above hole)
       new Cuboid(
         gl,
         barW,
-        holeY + GATE_HOLE_SIZE,
+        holeY + holeS,
         z,
         w - 2 * barW,
-        h - (holeY + GATE_HOLE_SIZE),
+        h - (holeY + holeS),
         d
       ),
     ];
