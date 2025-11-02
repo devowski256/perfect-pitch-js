@@ -1,11 +1,9 @@
-import { PITCH_MAX, PITCH_MIN } from '../config.js';
-
 export function detectPitchYin(
   buffer,
   sampleRate,
-  threshold = 0.15,
-  minFreq = PITCH_MIN,
-  maxFreq = PITCH_MAX
+  threshold = 0.1,
+  minFreq = 100,
+  maxFreq = 2000
 ) {
   const n = buffer.length;
   const maxLag = Math.floor(sampleRate / minFreq);

@@ -6,16 +6,18 @@ import {
   BALL_Y_SMOOTHING_FACTOR,
   CHEATING_ENABLED,
   GATE_HOLE_SIZE,
+  PITCH_MAX,
   PITCH_MIN,
 } from './config.js';
 import { pitchToHeight } from './rescale.js';
 
 function updateBallY(ball, pitch) {
-  const newHeight = pitchToHeight(Math.max(PITCH_MIN, pitch));
+  const normalizedPitch = Math.min(PITCH_MAX, Math.max(PITCH_MIN, pitch));
+  const newHeight = pitchToHeight(normalizedPitch);
 
-  ball.position[1] =
-    ball.position[1] * (1 - BALL_Y_SMOOTHING_FACTOR) +
-    newHeight * BALL_Y_SMOOTHING_FACTOR;
+  const factor = BALL_Y_SMOOTHING_FACTOR;
+
+  ball.position[1] = ball.position[1] * (1 - factor) + newHeight * factor;
 }
 
 function updateBallZ(ball, dt) {
@@ -57,8 +59,8 @@ function handleGameOver(state, dt) {
   }
 }
 
-export function update(state, pitch, dt) {
-  updateBallY(state.ball, pitch);
+export function update(state, detectedPitch, dt) {
+  updateBallY(state.ball, detectedPitch);
   updateBallZ(state.ball, dt);
 
   if (state.gameOverTimer === -1) {
