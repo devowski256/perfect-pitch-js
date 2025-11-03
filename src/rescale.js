@@ -15,5 +15,5 @@ export function rescaleLog(value, inMin, inMax, outMin, outMax) {
 }
 
 export function pitchToHeight(pitch) {
-  return rescale(pitch, PITCH_MIN, PITCH_MAX, 0, BALL_MAX_Y);
+  return rescaleLog(pitch, PITCH_MIN, PITCH_MAX, 0, BALL_MAX_Y);
 }
