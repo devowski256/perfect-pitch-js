@@ -5,8 +5,7 @@ export async function initAudioInput() {
   const source = audioContext.createMediaStreamSource(stream);
   const sampleRate = audioContext.sampleRate;
 
-  const analyser = audioContext.createAnalyser();
-  analyser.fftSize = 2048;
+  const analyser = new AnalyserNode(audioContext, { fftSize: 4096 });
   source.connect(analyser);
 
   const timeBuffer = new Float32Array(analyser.fftSize);
