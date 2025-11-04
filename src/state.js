@@ -16,11 +16,9 @@ export const INITIAL_STATE = {
     speed: BALL_INIT_SPEED,
     position: vec3.fromValues(0, 0, 0),
   },
-  gates: NOTES.map((pitch, i) => {
-    return {
-      z: (i + 1) * GATE_DISTANCE,
-      label: SOLFEGE[i],
-      holeY: pitchToHeight(pitch) - (GATE_HOLE_SIZE * GATE_HOLE_TOLERANCE) / 2,
-    };
-  }),
+  gates: NOTES.map((pitch, i) => ({
+    z: (i + 1) * GATE_DISTANCE,
+    label: SOLFEGE[i],
+    holeY: pitchToHeight(pitch) - (GATE_HOLE_SIZE * GATE_HOLE_TOLERANCE) / 2,
+  })),
 };

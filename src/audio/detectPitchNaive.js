@@ -1,12 +1,16 @@
-import { PITCH_MAX, PITCH_MIN } from '../config.js';
-
 export function detectPitchNaive(
   buffer,
   sampleRate,
-  minFreq = PITCH_MIN,
-  maxFreq = PITCH_MAX,
-  threshold = 0.25
+  minFreq = 100,
+  maxFreq = 1200,
+  threshold = 0.4
 ) {
+  // Discard noise
+  const rms = Math.sqrt(buffer.reduce((a, b) => a + b * b, 0) / buffer.length);
+  if (rms < 0.01) {
+    return -1;
+  }
+
   const n = buffer.length;
   const maxLag = Math.floor(sampleRate / minFreq);
   const minLag = Math.floor(sampleRate / maxFreq);
@@ -36,7 +40,7 @@ export function detectPitchNaive(
   }
 
   // Reject if correlation is too weak (likely noise)
-  if (bestLag === -1 || bestCorr < threshold) {
+  if (bestCorr < threshold) {
     return -1;
   }
 

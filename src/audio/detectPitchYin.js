@@ -1,9 +1,9 @@
 export function detectPitchYin(
   buffer,
   sampleRate,
-  threshold = 0.25,
   minFreq = 100,
-  maxFreq = 1200
+  maxFreq = 1200,
+  threshold = 0.2
 ) {
   const n = buffer.length;
   const maxLag = Math.floor(sampleRate / minFreq);
@@ -17,6 +17,7 @@ export function detectPitchYin(
       const diff = buffer[i] - buffer[i + tau];
       sum += diff * diff;
     }
+
     d[tau] = sum;
   }
 
@@ -35,6 +36,7 @@ export function detectPitchYin(
     if (dPrime[tau] < threshold) {
       const prev = tau > minLag ? dPrime[tau - 1] : Infinity;
       const next = tau < maxLag ? dPrime[tau + 1] : Infinity;
+
       if (dPrime[tau] < prev && dPrime[tau] < next) {
         tauEstimate = tau;
         break;
