@@ -37,10 +37,10 @@ function checkBallGateCollision(state) {
 
   const y = ball.position[1];
 
-  const fitsInHole =
+  const doesBallFitInHole =
     y >= gate.holeY && y + BALL_DIAMETER <= gate.holeY + GATE_HOLE_SIZE;
 
-  if (CHEATING_ENABLED || fitsInHole) {
+  if (doesBallFitInHole || CHEATING_ENABLED) {
     state.currentGate++;
 
     if (state.currentGate >= gates.length) {
