@@ -71,7 +71,7 @@ export class View {
 
     mat4.perspective(proj, Math.PI / 2, GAME_WIDTH / GAME_HEIGHT, 0.1, 100);
 
-    const eye = [-2.75, 1.5, -2];
+    const eye = [-2.25, 1.5, -2];
     if (state.gameOverTimer > 0) {
       eye[2] -= Math.min(
         Math.pow(state.gameOverTimer, 3),
